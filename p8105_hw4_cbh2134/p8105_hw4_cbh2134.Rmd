@@ -4,8 +4,25 @@ author: "Candace Haghighi"
 date: "10/25/2017"
 output: html_document
 ---
+##Problem 1
 
->Initializing libraries.
+> Initializing libraries.
 
 ```{r}
+library(tidyverse)
+library(haven)
+library(readxl)
+library(janitor)
+library(ggridges)
+library(ggthemes) 
+library(dplyr)
+```
+
+> Loading and tidying the FAS_pups dataset. 
+
+```{r}
+pup_data = read_csv("../data/FAS_pups.csv", col_types = "ciiiii") %>%
+  clean_names() %>%
+  mutate(sex = recode(sex, `1` = "male", `2` = "female")) %>%
+  gather(postnataldev, days, pd_ears:pd_walk, factor_key = TRUE)
 ```
