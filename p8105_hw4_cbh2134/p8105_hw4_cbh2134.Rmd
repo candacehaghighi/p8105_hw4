@@ -27,5 +27,17 @@ pup_data = read_csv("../data/FAS_pups.csv", col_types = "ciiiii") %>%
   gather(key = PD_outcome, value = pd, pd_ears : pd_walk) %>%
   separate(PD_outcome, into = c("remove", "PD_outcome"), sep = "_") %>%
   select(-remove)
-View(pup_data)
 ```
+
+
+> plotting the distribution of post-natal days for each devlopmental landmark.
+
+```{r}
+pup_data %>%
+  filter(!is.na(pd)) %>%
+  ggplot(aes(x = PD_outcome, y = pd, color = PD_outcome)) + 
+  geom_violin(aes(fill = PD_outcome), color = "blue", alpha = .5) + 
+  labs(title = "Distribution of Post-Natal Days for Each Devlopmental Landmark", x = "devlopmental landmark", y = "post-natal days")
+```
+
+* From the violin plot, The development landmark of eyes has the longest postnatal days,whose mean is around 13 days. The development landmark of ears has the shortest postnatal days, whose mean is around 3 days and 4 days.The developmental landmark of pivot has the widest range of postntal days, whose mean is between 4 days to 12 days.
